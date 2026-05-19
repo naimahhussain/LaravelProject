@@ -25,3 +25,6 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+vendor/
+vendor_broken_20260517_1710/
+node_modules/
