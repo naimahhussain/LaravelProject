@@ -1,65 +1,171 @@
-# Student Information
+# Naimah Electronics Store
 
-Name: Naimah Naimah
+**Student Name:** Naimah Naimah  
+**Student Number:** 20232022182
 
-Student Number: 20232022182
+---
 
+## About the Project
 
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+Naimah Electronics Store is a full-stack e-commerce web application built with **Laravel 12** and **PHP 8.4**. It allows customers to browse electronics products by category, add items to a shopping cart, and place orders. A secure admin panel lets staff manage products, categories, and orders in real time.
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+---
 
-## About Laravel
+## Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Customer Side
+- Browse all products on the homepage
+- **Filter by category** (Phones, Laptops, TVs, Tablets, Cameras, Audio, Gaming, Accessories)
+- Add products to cart with instant feedback (no page reload)
+- View and manage cart — update quantities, remove items
+- Checkout with name, email, phone, and delivery address
+- User registration and login
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Admin Panel (`/admin`)
+- Protected — only admin accounts can access it
+- **Dashboard** with live stats (products, categories, orders, revenue) — auto-refreshes every 15 seconds
+- New orders placed by customers appear on the dashboard automatically
+- Full **CRUD** for Products and Categories
+- **Orders management** — view order details and update status (Pending → Processing → Shipped → Delivered → Cancelled)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Tech Stack
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+| Layer | Technology |
+|---|---|
+| Backend | Laravel 12 (PHP 8.4) |
+| Database | SQLite |
+| Frontend | Bootstrap 4, Font Awesome 6, jQuery |
+| Admin UI | SB Admin 2 (via CDN) |
+| Auth | Laravel session-based authentication |
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+## Requirements
 
-## Agentic Development
+- PHP 8.4+
+- Composer 2+
+- Git
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+---
+
+## Setup Instructions
+
+### 1. Clone the repository
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+git clone <repository-url>
+cd LaravelProject
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### 2. Install PHP dependencies
 
-## Contributing
+```bash
+composer install
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 3. Create the environment file
 
-## Code of Conduct
+```bash
+cp .env.example .env
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 4. Generate the application key
 
-## Security Vulnerabilities
+```bash
+php artisan key:generate
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 5. Run database migrations and seed sample data
 
-## License
+```bash
+php artisan migrate --seed
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This creates all tables and seeds:
+- 8 product categories
+- 18 sample electronics products
+- 4 sample orders
+- An admin user account
+
+### 6. Start the development server
+
+```bash
+php artisan serve
+```
+
+The app will be available at **http://localhost:8000**
+
+---
+
+## Default Accounts
+
+| Role | Email | Password |
+|---|---|---|
+| Admin | admin@example.com | admin123 |
+| Test User | test@example.com | password |
+
+> The admin account gives access to the `/admin` dashboard.
+
+---
+
+## Project Structure
+
+```
+app/
+├── Http/
+│   ├── Controllers/
+│   │   ├── AuthController.php        # Login, register, logout
+│   │   ├── CartController.php        # Cart & checkout
+│   │   ├── FrontController.php       # Homepage
+│   │   └── Admin/
+│   │       ├── AdminController.php   # Dashboard
+│   │       ├── ProductController.php # Product CRUD
+│   │       ├── CategoryController.php# Category CRUD
+│   │       └── OrderController.php   # Order management
+│   └── Middleware/
+│       └── AdminMiddleware.php       # Admin route protection
+├── Models/
+│   ├── Category.php
+│   ├── Product.php
+│   ├── Order.php
+│   ├── OrderItem.php
+│   └── User.php
+database/
+├── migrations/                       # All table definitions
+└── seeders/
+    └── DatabaseSeeder.php            # Sample data
+resources/views/
+├── home.blade.php                    # Storefront
+├── cart.blade.php                    # Cart & checkout
+├── auth/
+│   ├── login.blade.php
+│   └── register.blade.php
+└── admin/
+    ├── adminbase.blade.php           # Admin layout
+    ├── index.blade.php               # Dashboard
+    ├── products/                     # Product CRUD views
+    ├── categories/                   # Category CRUD views
+    └── orders/                       # Order views
+routes/
+└── web.php                           # All application routes
+```
+
+---
+
+## Key Routes
+
+| Method | URL | Description |
+|---|---|---|
+| GET | `/` | Homepage / product listing |
+| GET | `/login` | Login page |
+| GET | `/register` | Registration page |
+| GET | `/cart` | Shopping cart |
+| POST | `/cart/add/{product}` | Add product to cart (AJAX) |
+| POST | `/checkout` | Place an order |
+| GET | `/admin` | Admin dashboard |
+| GET | `/admin/products` | Manage products |
+| GET | `/admin/categories` | Manage categories |
+| GET | `/admin/orders` | Manage orders |
+
